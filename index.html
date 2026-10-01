@@ -12,11 +12,9 @@
   <!-- Babel Compiler for JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<!-- Replaced background #f4f4f9 with a very soft peach/grey #f9f6f4 for subtle warmth -->
-<body style="margin: 0; font-family: Arial, sans-serif; background-color: #f9f6f4; color: #1a1b3a;">
+<body style="margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px;">
   <div id="root"></div>
 
-  <!-- All React Code Inline -->
   <script type="text/babel">
     function ContactForm({ onAddContact }) {
       const [formData, setFormData] = React.useState({ name: '', email: '', phone: '', role: '' });
@@ -34,48 +32,51 @@
       };
 
       return (
-        // Form box: used very faint light blue #f0f7ff background instead of flat white
-        <form onSubmit={handleSubmit} style={{ background: '#f0f7ff', padding: '20px', borderRadius: '12px', marginBottom: '20px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', border: '1px solid #d9e9ff' }}>
-          <h2 style={{ color: #1a1b3a, borderBottom: '2px solid #a3c4f3', paddingBottom: '10px' }}>Add New Contact</h2>
-          <div style={{ marginBottom: '10px' }}>
-            <input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} required style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+        <form onSubmit={handleSubmit} style={{ background: '#ffffff', padding: '25px', borderRadius: '16px', marginBottom: '25px', boxShadow: '0 10px 25px rgba(0,0,0,0.15)' }}>
+          <h2 style={{ margin: '0 0 20px 0', color: '#4a00e0', fontSize: '22px', borderBottom: '3px solid #ff007f', display: 'inline-block', paddingBottom: '5px' }}>Add New Contact</h2>
+          <div style={{ marginBottom: '12px' }}>
+            <input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} required style={{ width: '100%', padding: '12px', boxSizing: 'border-box', border: '2px solid #e2e8f0', borderRadius: '8px', fontSize: '14px', outline: 'none' }} />
           </div>
-          <div style={{ marginBottom: '10px' }}>
-            <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+          <div style={{ marginBottom: '12px' }}>
+            <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required style={{ width: '100%', padding: '12px', boxSizing: 'border-box', border: '2px solid #e2e8f0', borderRadius: '8px', fontSize: '14px', outline: 'none' }} />
           </div>
-          <div style={{ marginBottom: '10px' }}>
-            <input type="tel" name="phone" placeholder="Phone Number (Optional)" value={formData.phone} onChange={handleChange} style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+          <div style={{ marginBottom: '12px' }}>
+            <input type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} style={{ width: '100%', padding: '12px', boxSizing: 'border-box', border: '2px solid #e2e8f0', borderRadius: '8px', fontSize: '14px', outline: 'none' }} />
           </div>
-          <div style={{ marginBottom: '15px' }}>
-            <input type="text" name="role" placeholder="Role / Title (e.g. Developer)" value={formData.role} onChange={handleChange} style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+          <div style={{ marginBottom: '20px' }}>
+            <input type="text" name="role" placeholder="Role / Title" value={formData.role} onChange={handleChange} style={{ width: '100%', padding: '12px', boxSizing: 'border-box', border: '2px solid #e2e8f0', borderRadius: '8px', fontSize: '14px', outline: 'none' }} />
           </div>
-          {/* Button: replaced generic #0066cc blue with a richer, warmer teal #008080 */}
-          <button type="submit" style={{ padding: '12px 20px', backgroundColor: '#008080', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '15px' }}>
-            Add Contact
+          <button type="submit" style={{ width: '100%', padding: '12px', background: 'linear-gradient(90deg, #ff007f 0%, #7928ca 100%)', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', fontSize: '16px', boxShadow: '0 4px 12px rgba(255, 0, 127, 0.4)' }}>
+            + Add Contact
           </button>
         </form>
       );
     }
 
     function ContactCard({ contact }) {
+      const avatarLetter = contact.name ? contact.name.charAt(0).toUpperCase() : '?';
+
       return (
-        // Card box: keeps white background for contrast, but borders are now soft sky blue #a3c4f3
-        <div style={{ background: '#fff', border: '1px solid #a3c4f3', padding: '18px', marginBottom: '12px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
-          <h3 style={{ margin: '0 0 8px 0', color: '#1a1b3a' }}>{contact.name}</h3>
-          {contact.role && <p style={{ fontStyle: 'italic', color: '#5271a0', margin: '0 0 10px 0', fontSize: '14px' }}>{contact.role}</p>}
-          <p style={{ margin: '4px 0', fontSize: '15px' }}><strong style={{color: #3e5a88}}>Email:</strong> {contact.email}</p>
-          {contact.phone && <p style={{ margin: '4px 0', fontSize: '15px' }}><strong style={{color: #3e5a88}}>Phone:</strong> {contact.phone}</p>}
+        <div style={{ background: '#ffffff', padding: '18px', marginBottom: '15px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', display: 'flex', alignItems: 'center', gap: '15px', borderLeft: '6px solid #ff007f' }}>
+          <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'linear-gradient(135deg, #7928ca, #ff007f)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: 'bold', flexShrink: 0 }}>
+            {avatarLetter}
+          </div>
+          <div>
+            <h3 style={{ margin: '0 0 4px 0', color: '#2d3748', fontSize: '18px' }}>{contact.name}</h3>
+            {contact.role && <span style={{ background: '#f3e8ff', color: '#7928ca', padding: '3px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: '600', display: 'inline-block', marginBottom: '6px' }}>{contact.role}</span>}
+            <p style={{ margin: '2px 0', fontSize: '14px', color: '#4a5568' }}><strong>Email:</strong> {contact.email}</p>
+            {contact.phone && <p style={{ margin: '2px 0', fontSize: '14px', color: '#4a5568' }}><strong>Phone:</strong> {contact.phone}</p>}
+          </div>
         </div>
       );
     }
 
     function UserList({ contacts }) {
       return (
-        // List container: used a subtle cream #fffef0 background instead of flat white
-        <div style={{ background: '#fffef0', padding: '20px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', border: '1px solid #f9ebcc' }}>
-          <h2 style={{ color: #1a1b3a, borderBottom: '2px solid #f2db86', paddingBottom: '10px' }}>Contact List</h2>
+        <div style={{ background: '#ffffff', padding: '25px', borderRadius: '16px', boxShadow: '0 10px 25px rgba(0,0,0,0.15)' }}>
+          <h2 style={{ margin: '0 0 20px 0', color: '#4a00e0', fontSize: '22px', borderBottom: '3px solid #7928ca', display: 'inline-block', paddingBottom: '5px' }}>Contact List</h2>
           {contacts.length === 0 ? (
-            <p style={{fontStyle: 'italic', color: '#777'}}>No contacts added yet.</p>
+            <p style={{ fontStyle: 'italic', color: '#a0aec0' }}>No contacts added yet.</p>
           ) : (
             contacts.map((contact, index) => (
               <ContactCard key={index} contact={contact} />
@@ -95,9 +96,9 @@
       };
 
       return (
-        <div style={{ maxWidth: '650px', margin: '40px auto', padding: '0 15px' }}>
-          <h1 style={{ textAlign: 'center', color: '#1a1b3a', marginBottom: '30px', fontWeight: 'bold' }}>
-            Contact Manager Website
+        <div style={{ maxWidth: '600px', margin: '20px auto' }}>
+          <h1 style={{ textAlign: 'center', color: '#ffffff', marginBottom: '30px', fontSize: '32px', textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+            Contact Manager
           </h1>
           <ContactForm onAddContact={handleAddContact} />
           <UserList contacts={contacts} />
