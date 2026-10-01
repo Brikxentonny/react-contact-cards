@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>React Contact Cards Website</title>
+  
+  <!-- React & ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  
+  <!-- Babel Compiler for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<!-- Replaced background #f4f4f9 with a very soft peach/grey #f9f6f4 for subtle warmth -->
+<body style="margin: 0; font-family: Arial, sans-serif; background-color: #f9f6f4; color: #1a1b3a;">
+  <div id="root"></div>
+
+  <!-- All React Code Inline -->
+  <script type="text/babel">
+    function ContactForm({ onAddContact }) {
+      const [formData, setFormData] = React.useState({ name: '', email: '', phone: '', role: '' });
+
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!formData.name || !formData.email) return;
+        onAddContact(formData);
+        setFormData({ name: '', email: '', phone: '', role: '' });
+      };
+
+      return (
+        // Form box: used very faint light blue #f0f7ff background instead of flat white
+        <form onSubmit={handleSubmit} style={{ background: '#f0f7ff', padding: '20px', borderRadius: '12px', marginBottom: '20px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', border: '1px solid #d9e9ff' }}>
+          <h2 style={{ color: #1a1b3a, borderBottom: '2px solid #a3c4f3', paddingBottom: '10px' }}>Add New Contact</h2>
+          <div style={{ marginBottom: '10px' }}>
+            <input type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} required style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <input type="email" name="email" placeholder="Email Address" value={formData.email} onChange={handleChange} required style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <input type="tel" name="phone" placeholder="Phone Number (Optional)" value={formData.phone} onChange={handleChange} style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+          </div>
+          <div style={{ marginBottom: '15px' }}>
+            <input type="text" name="role" placeholder="Role / Title (e.g. Developer)" value={formData.role} onChange={handleChange} style={{ width: '100%', padding: '10px', boxSizing: 'border-box', border: '1px solid #c9dfff', borderRadius: '6px' }} />
+          </div>
+          {/* Button: replaced generic #0066cc blue with a richer, warmer teal #008080 */}
+          <button type="submit" style={{ padding: '12px 20px', backgroundColor: '#008080', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '15px' }}>
+            Add Contact
+          </button>
+        </form>
+      );
+    }
+
+    function ContactCard({ contact }) {
+      return (
+        // Card box: keeps white background for contrast, but borders are now soft sky blue #a3c4f3
+        <div style={{ background: '#fff', border: '1px solid #a3c4f3', padding: '18px', marginBottom: '12px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.03)' }}>
+          <h3 style={{ margin: '0 0 8px 0', color: '#1a1b3a' }}>{contact.name}</h3>
+          {contact.role && <p style={{ fontStyle: 'italic', color: '#5271a0', margin: '0 0 10px 0', fontSize: '14px' }}>{contact.role}</p>}
+          <p style={{ margin: '4px 0', fontSize: '15px' }}><strong style={{color: #3e5a88}}>Email:</strong> {contact.email}</p>
+          {contact.phone && <p style={{ margin: '4px 0', fontSize: '15px' }}><strong style={{color: #3e5a88}}>Phone:</strong> {contact.phone}</p>}
+        </div>
+      );
+    }
+
+    function UserList({ contacts }) {
+      return (
+        // List container: used a subtle cream #fffef0 background instead of flat white
+        <div style={{ background: '#fffef0', padding: '20px', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', border: '1px solid #f9ebcc' }}>
+          <h2 style={{ color: #1a1b3a, borderBottom: '2px solid #f2db86', paddingBottom: '10px' }}>Contact List</h2>
+          {contacts.length === 0 ? (
+            <p style={{fontStyle: 'italic', color: '#777'}}>No contacts added yet.</p>
+          ) : (
+            contacts.map((contact, index) => (
+              <ContactCard key={index} contact={contact} />
+            ))
+          )}
+        </div>
+      );
+    }
+
+    function App() {
+      const [contacts, setContacts] = React.useState([
+        { name: 'Brikxen Tonny', email: 'brikxen@example.com', phone: '123-456-7890', role: 'Frontend Developer' }
+      ]);
+
+      const handleAddContact = (newContact) => {
+        setContacts((prev) => [...prev, newContact]);
+      };
+
+      return (
+        <div style={{ maxWidth: '650px', margin: '40px auto', padding: '0 15px' }}>
+          <h1 style={{ textAlign: 'center', color: '#1a1b3a', marginBottom: '30px', fontWeight: 'bold' }}>
+            Contact Manager Website
+          </h1>
+          <ContactForm onAddContact={handleAddContact} />
+          <UserList contacts={contacts} />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
